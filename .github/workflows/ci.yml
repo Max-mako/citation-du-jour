@@ -8,8 +8,25 @@ on:
 
 jobs:
   code-quality:
-    name: Lint & Tests
+    name: Lint & Tests (Vraie BDD)
     runs-on: ubuntu-latest
+
+    # 🐘 Déclaration d'un service PostgreSQL pour les tests
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: citation_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: 📥 Récupération du code source
         uses: actions/checkout@v4
@@ -25,12 +42,13 @@ jobs:
       - name: 🔍 Exécution du Lint (Syntaxe)
         run: npm run lint
 
-      - name: 🧪 Exécution des Tests
+      - name: 🧪 Exécution des Tests avec la vraie BDD
         env:
-          DB_USER: test
-          DB_PASSWORD: test
+          DB_USER: test_user
+          DB_PASSWORD: test_password
           DB_HOST: localhost
-          DB_NAME: test
+          DB_PORT: 5432
+          DB_NAME: citation_db
         run: npm test
 
   docker-build:

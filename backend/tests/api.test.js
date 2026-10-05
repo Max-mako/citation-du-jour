@@ -1,24 +1,7 @@
 const request = require('supertest');
-
-// Simulation (Mock) complète de pg pour isoler les tests
-jest.mock('pg', () => {
-  const mPool = {
-    query: jest.fn().mockImplementation((queryText) => {
-      if (queryText.includes('SELECT')) {
-        return Promise.resolve({ rows: [{ id: 1, texte: 'Citation de test', auteur: 'Max', likes: 0, date: '01/01/2026' }] });
-      }
-      if (queryText.includes('INSERT')) {
-        return Promise.resolve({ rows: [{ id: 2, texte: 'Nouvelle citation', auteur: 'Max', likes: 0, date: '01/01/2026' }] });
-      }
-      return Promise.resolve({ rows: [] });
-    }),
-  };
-  return { Pool: jest.fn(() => mPool) };
-});
-
 const app = require('../server');
 
-describe('Tests Fonctionnels de l\'API Citations', () => {
+describe('Tests Fonctionnels de l\'API Citations (Vraie BDD)', () => {
   
   it('Devrait retourner une liste (statut 200)', async () => {
     const res = await request(app).get('/api/citations');
