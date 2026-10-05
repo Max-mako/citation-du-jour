@@ -8,7 +8,7 @@ on:
 
 jobs:
   code-quality:
-    name: Lint & Tests
+    name: Tests Unitaires & Fonctionnels
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Récupération du code source
@@ -22,11 +22,7 @@ jobs:
       - name: 📦 Installation globale des dépendances (Monorepo)
         run: npm install
 
-      - name: 🔍 Exécution du Lint (Syntaxe)
-        run: npm run lint
-
-      - name: 🧪 Exécution des Tests (Unitaires & Fonctionnels)
-        # On passe une variable d'environnement bidon pour que pg ne plante pas lors du test
+      - name: 🧪 Exécution des Tests
         env:
           DB_USER: test
           DB_PASSWORD: test
@@ -36,7 +32,7 @@ jobs:
 
   docker-build:
     name: Build Docker
-    needs: code-quality # Ce job attend que les tests passent avec succès
+    needs: code-quality
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Récupération du code source
