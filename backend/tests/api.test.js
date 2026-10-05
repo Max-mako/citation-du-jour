@@ -1,11 +1,14 @@
 const request = require('supertest');
 
-// Simulation (Mock) du module pg pour éviter de chercher une vraie base de données pendant les tests
+// Simulation (Mock) complète de pg pour isoler les tests
 jest.mock('pg', () => {
   const mPool = {
     query: jest.fn().mockImplementation((queryText) => {
       if (queryText.includes('SELECT')) {
         return Promise.resolve({ rows: [{ id: 1, texte: 'Citation de test', auteur: 'Max', likes: 0, date: '01/01/2026' }] });
+      }
+      if (queryText.includes('INSERT')) {
+        return Promise.resolve({ rows: [{ id: 2, texte: 'Nouvelle citation', auteur: 'Max', likes: 0, date: '01/01/2026' }] });
       }
       return Promise.resolve({ rows: [] });
     }),
@@ -26,7 +29,7 @@ describe('Tests Fonctionnels de l\'API Citations', () => {
   it('Devrait rejeter une citation sans texte (statut 400)', async () => {
     const res = await request(app)
       .post('/api/citations')
-      .send({ auteur: 'Max' }); // Il manque le texte
+      .send({ auteur: 'Max' });
     
     expect(res.statusCode).toEqual(400);
     expect(res.body).toHaveProperty('erreur', 'Texte requis.');
