@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  # NOUVEAU CONTENEUR : La base de données
+  database:
+    image: postgres:15-alpine
+    container_name: citation-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: citations_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data # Volume géré par Docker
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql # Script d'init
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    container_name: citation-backend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      # Transmission des identifiants au code Node.js
+      - DB_USER=admin
+      - DB_PASSWORD=password123
+      - DB_HOST=database # Le DNS interne de Docker résout le nom du service
+      - DB_NAME=citations_db
+    depends_on:
+      - database
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    container_name: citation-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+# Déclaration du volume persistant
+volumes:
+  db-data:

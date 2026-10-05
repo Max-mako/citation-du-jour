@@ -1,0 +1,146 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    background: #313244;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 700px;
+}
+
+h1, h2 { color: #89b4fa; }
+
+form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #45475a;
+    background-color: #181825;
+    color: #cdd6f4;
+    border-radius: 6px;
+    font-size: 16px;
+}
+
+button {
+    padding: 12px 24px;
+    background-color: #89b4fa;
+    color: #11111b;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+button:hover { background-color: #74c7ec; }
+
+.vedette {
+    font-size: 1.4em;
+    font-style: italic;
+    padding: 25px;
+    padding-right: 50px; /* On laisse de la place pour la croix à droite */
+    background-color: #45475a;
+    border-left: 6px solid #89b4fa;
+    margin-bottom: 30px;
+    border-radius: 0 8px 8px 0;
+    position: relative; /* Indispensable pour le repère de la croix */
+}
+
+ul { list-style-type: none; padding: 0; }
+
+li {
+    padding: 15px;
+    padding-right: 50px; /* Pareil pour l'historique */
+    background-color: #181825;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    position: relative; /* Indispensable pour le repère de la croix */
+}
+
+.date {
+    font-size: 0.85em;
+    color: #a6adc8;
+    display: block;
+    margin-top: 8px;
+    font-style: normal;
+}
+#auteur-input {
+    flex: 0.4; /* Le pseudo prend un peu moins de place que la citation */
+    min-width: 120px;
+}
+
+#citation-input {
+    flex: 1;
+}
+
+.meta-info {
+    font-size: 0.85em;
+    color: #a6adc8;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.auteur {
+    font-weight: bold;
+    color: #cba6f7;
+}
+
+.like-btn {
+    background-color: transparent;
+    color: #f38ba8;
+    border: 1px solid #f38ba8;
+    padding: 4px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.like-btn:hover {
+    background-color: #f38ba8;
+    color: #11111b;
+}
+
+.citation-header {
+    display: block; /* On retire le flexbox qui n'est plus utile */
+}
+
+.delete-btn {
+    position: absolute;
+    right: 15px; /* Collé à 15px du bord droit de la case */
+    top: 50%; /* Placé exactement au milieu de la hauteur */
+    transform: translateY(-50%); /* Ajustement mathématique pour un centrage parfait */
+    
+    background: transparent !important; /* Le !important force la suppression du fond bleu */
+    border: none;
+    outline: none;
+    color: #585b70; 
+    font-size: 20px;
+    cursor: pointer;
+    padding: 5px; 
+    transition: color 0.2s, transform 0.2s;
+}
+
+.delete-btn:hover {
+    color: #f38ba8; 
+    /* Au survol, on garde l'alignement vertical (-50%) tout en grossissant (scale) */
+    transform: translateY(-50%) scale(1.3); 
+    background-color: transparent !important;
+}

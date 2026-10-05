@@ -1,0 +1,15 @@
+{
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "database": "citations_db",
+            "username": "admin",
+            "name": "citations",
+            "password": "password123"
+        }
+    ]
+}

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citation du Jour</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Citation du Jour</h1>
+
+        <form id="citation-form">
+            <input type="text" id="auteur-input" placeholder="Ton pseudo (optionnel)">
+            <input type="text" id="citation-input" placeholder="Entrez la nouvelle citation..." required>
+            <button type="submit">Publier</button>
+        </form>
+
+        <div id="citation-vedette" class="vedette">
+            <!-- La citation la plus récente sera injectée ici par JS -->
+        </div>
+
+        <h2>Historique</h2>
+        <ul id="historique-list">
+            <!-- Les anciennes citations seront injectées ici par JS -->
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
