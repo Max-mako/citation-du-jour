@@ -1,10 +1,13 @@
 name: CI Docker Citation du Jour
 
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    paths:
+      - 'backend/**'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/ci.yml'
 
 jobs:
   code-quality:
