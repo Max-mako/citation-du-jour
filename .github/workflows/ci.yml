@@ -23,7 +23,7 @@ jobs:
         run: npm install
 
       - name: 🔍 Exécution du Lint (Syntaxe)
-        run: npm run lint
+        run: npx eslint backend/
 
       - name: 🧪 Exécution des Tests
         env:
