@@ -7,12 +7,40 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  code-quality:
+    name: Lint & Tests
     runs-on: ubuntu-latest
-
     steps:
-    - name: 📥 Récupération du code source
-      uses: actions/checkout@v4
+      - name: 📥 Récupération du code source
+        uses: actions/checkout@v4
 
-    - name: 🐳 Test de construction des images Docker
-      run: docker compose build
+      - name: ⚙️ Configuration de Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 📦 Installation globale des dépendances (Monorepo)
+        run: npm install
+
+      - name: 🔍 Exécution du Lint (Syntaxe)
+        run: npm run lint
+
+      - name: 🧪 Exécution des Tests (Unitaires & Fonctionnels)
+        # On passe une variable d'environnement bidon pour que pg ne plante pas lors du test
+        env:
+          DB_USER: test
+          DB_PASSWORD: test
+          DB_HOST: localhost
+          DB_NAME: test
+        run: npm test
+
+  docker-build:
+    name: Build Docker
+    needs: code-quality # Ce job attend que les tests passent avec succès
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Récupération du code source
+        uses: actions/checkout@v4
+
+      - name: 🐳 Test de construction des images
+        run: docker compose build

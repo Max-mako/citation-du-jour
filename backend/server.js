@@ -77,6 +77,12 @@ app.delete('/api/citations/:id', async (req, res) => {
     }
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Backend démarré et en écoute sur le port ${PORT}`);
-});
+// On n'écoute sur le port que si le fichier est exécuté directement (pas lors des tests)
+if (require.main === module) {
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Backend démarré et en écoute sur le port ${PORT}`);
+    });
+}
+
+// Export de l'application pour les tests fonctionnels
+module.exports = app;
