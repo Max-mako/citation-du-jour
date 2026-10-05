@@ -8,7 +8,7 @@ on:
 
 jobs:
   code-quality:
-    name: Tests Unitaires & Fonctionnels
+    name: Lint & Tests
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Récupération du code source
@@ -21,6 +21,9 @@ jobs:
 
       - name: 📦 Installation globale des dépendances (Monorepo)
         run: npm install
+
+      - name: 🔍 Exécution du Lint (Syntaxe)
+        run: npm run lint
 
       - name: 🧪 Exécution des Tests
         env:
