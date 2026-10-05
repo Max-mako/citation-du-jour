@@ -19,14 +19,11 @@ jobs:
         with:
           node-version: '18'
 
-      - name: 📦 Installation globale des dépendances (Monorepo)
+      - name: 📦 Installation des dépendances (Monorepo)
         run: npm install
 
-      - name: 🛠️ Forcer une version stable d'ESLint
-        run: npm install --save-dev eslint@8.57.0 --prefix backend
-
       - name: 🔍 Exécution du Lint (Syntaxe)
-        run: npx eslint backend/
+        run: npm run lint
 
       - name: 🧪 Exécution des Tests
         env:
